@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AttendanceHub - Smart Attendance Management</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        /* ════════════════════════════════════════════════════════════════
+           LANDING PAGE - MODERN SAAS DESIGN
+           ════════════════════════════════════════════════════════════════ */
+
+        body {
+            background: #f8f9fa;
+        }
+
+        .landing-hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(200, 16, 46, 0.08), rgba(0, 102, 204, 0.08));
+            padding: var(--spacing-2xl) var(--spacing-lg);
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 700px;
+            animation: slideUp var(--transition-slow);
+        }
+
+        .hero-icon {
+            font-size: 4.5rem;
+            margin-bottom: var(--spacing-xl);
+            animation: float 3s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: var(--spacing-md);
+            color: var(--text-primary);
+            letter-spacing: -1px;
+        }
+
+        .hero-content .subtitle {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-2xl);
+            line-height: 1.7;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: var(--spacing-lg);
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .hero-buttons a {
+            text-decoration: none;
+        }
+
+        .btn-large {
+            padding: 14px 32px;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-large:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-2xl);
+            margin-top: var(--spacing-2xl);
+            max-width: 1000px;
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: var(--spacing-2xl);
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            transition: all 0.2s ease;
+            border: 1px solid var(--border-light);
+            text-align: left;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+            border-color: #C8102E;
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing-md);
+            display: inline-block;
+        }
+
+        .feature-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-md);
+            color: var(--text-primary);
+        }
+
+        .feature-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* ════════════════════════════════════════════════════════════════
+           RESPONSIVE DESIGN
+           ════════════════════════════════════════════════════════════════ */
+
+        @media (max-width: 1024px) {
+            .landing-hero {
+                padding: var(--spacing-xl) var(--spacing-lg);
+            }
+
+            .hero-content h1 {
+                font-size: 2.8rem;
+            }
+
+            .hero-content .subtitle {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .landing-hero {
+                padding: var(--spacing-lg);
+            }
+
+            .hero-icon {
+                font-size: 3.5rem;
+                margin-bottom: var(--spacing-lg);
+            }
+
+            .hero-content h1 {
+                font-size: 2.2rem;
+                margin-bottom: var(--spacing-sm);
+            }
+
+            .hero-content .subtitle {
+                font-size: 1rem;
+                margin-bottom: var(--spacing-xl);
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                width: 100%;
+                gap: var(--spacing-md);
+            }
+
+            .hero-buttons a {
+                width: 100%;
+            }
+
+            .btn-large {
+                width: 100%;
+                justify-content: center;
+                padding: 12px 24px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-xl);
+            }
+
+            .feature-card {
+                padding: var(--spacing-xl);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .landing-hero {
+                padding: var(--spacing-md);
+                min-height: auto;
+                padding-top: var(--spacing-xl);
+                padding-bottom: var(--spacing-xl);
+            }
+
+            .hero-icon {
+                font-size: 3rem;
+                margin-bottom: var(--spacing-md);
+            }
+
+            .hero-content h1 {
+                font-size: 1.8rem;
+                margin-bottom: var(--spacing-xs);
+            }
+
+            .hero-content .subtitle {
+                font-size: 0.95rem;
+                margin-bottom: var(--spacing-lg);
+            }
+
+            .btn-large {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+
+            .feature-card {
+                padding: var(--spacing-lg);
+            }
+
+            .feature-title {
+                font-size: 1rem;
+            }
+
+            .feature-desc {
+                font-size: 0.9rem;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="landing-hero">
+        <div class="hero-content">
+            <div class="hero-icon">📋</div>
+            <h1>AttendanceHub</h1>
+            <p class="subtitle">Smart Attendance Management powered by GPS verification and real-time data sync</p>
+
+            <div class="hero-buttons">
+                <a href="/organizer.html">
+                    <button class="btn-primary btn-large">
+                        👔 Organizer Panel
+                    </button>
+                </a>
+                <a href="/organizer.html">
+                    <button class="btn-secondary btn-large">
+                        ✍️ Create Form
+                    </button>
+                </a>
+            </div>
+
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-title">Real-Time Sync</div>
+                    <p class="feature-desc">Data stored instantly with automatic MongoDB Atlas synchronization</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📍</div>
+                    <div class="feature-title">GPS Validation</div>
+                    <p class="feature-desc">Location captured and verified against event coordinates in real-time</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <div class="feature-title">Premium Design</div>
+                    <p class="feature-desc">Enterprise SaaS-level UI with smooth animations and responsive layout</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔧</div>
+                    <div class="feature-title">Dynamic Forms</div>
+                    <p class="feature-desc">Create custom attendance forms with flexible field types and validation</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <div class="feature-title">Live Analytics</div>
+                    <p class="feature-desc">View detailed attendance reports, statistics, and GPS verification status</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔐</div>
+                    <div class="feature-title">Duplicate Prevention</div>
+                    <p class="feature-desc">One submission per student per event with unique UID validation</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

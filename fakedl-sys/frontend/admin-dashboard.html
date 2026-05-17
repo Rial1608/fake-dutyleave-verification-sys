@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Admin Dashboard - DL Verification System">
+  <title>Admin Dashboard — DL Verification</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* ===== ACADEMIC EXCELLENCE — ADMIN PANEL ===== */
+    body.admin-panel {
+      display: flex;
+      min-height: 100vh;
+      background: #f3f4f5;
+      overflow-x: hidden;
+    }
+
+    /* ===== COMPACT RAIL SIDEBAR ===== */
+    .rail-sidebar {
+      width: 76px;
+      min-height: 100vh;
+      background: linear-gradient(180deg, #1A1A2E 0%, #16213E 60%, #0F3460 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: fixed;
+      left: 0;
+      top: 0;
+      z-index: 200;
+      transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: hidden;
+      box-shadow: 4px 0 30px rgba(26, 26, 46, 0.15);
+    }
+
+    .rail-sidebar:hover {
+      width: 240px;
+    }
+
+    .rail-logo {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, #C8102E, #9E001F);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 18px;
+      color: #fff;
+      margin: 24px 0 8px;
+      flex-shrink: 0;
+      box-shadow: 0 4px 16px rgba(200, 16, 46, 0.35);
+    }
+
+    .rail-brand {
+      opacity: 0;
+      white-space: nowrap;
+      transition: opacity 0.2s ease 0.1s;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .rail-sidebar:hover .rail-brand {
+      opacity: 1;
+    }
+
+    .rail-brand h4 {
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      margin-top: 8px;
+    }
+
+    .rail-brand span {
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.45);
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+    }
+
+    /* Profile */
+    .rail-profile {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      margin: 8px 8px 12px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .rail-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: rgba(200, 16, 46, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .rail-avatar .material-icons-round {
+      font-size: 20px;
+      color: #ff8a8a;
+    }
+
+    .rail-profile-text {
+      opacity: 0;
+      transition: opacity 0.2s ease 0.1s;
+    }
+
+    .rail-sidebar:hover .rail-profile-text {
+      opacity: 1;
+    }
+
+    .rail-profile-text h5 {
+      font-size: 12px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .rail-profile-text span {
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    /* Nav links */
+    .rail-nav {
+      flex: 1;
+      width: 100%;
+      padding: 0 12px;
+    }
+
+    .rail-link {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      color: rgba(255, 255, 255, 0.5);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      border: none;
+      background: none;
+      font-family: inherit;
+      width: 100%;
+      text-align: left;
+      white-space: nowrap;
+      margin-bottom: 4px;
+      position: relative;
+    }
+
+    .rail-link .material-icons-round {
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    .rail-link .link-text {
+      opacity: 0;
+      transition: opacity 0.2s ease 0.1s;
+    }
+
+    .rail-sidebar:hover .rail-link .link-text {
+      opacity: 1;
+    }
+
+    .rail-link:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .rail-link.active {
+      color: #fff;
+      background: linear-gradient(135deg, #C8102E, #9E001F);
+      box-shadow: 0 4px 20px rgba(200, 16, 46, 0.25);
+    }
+
+    .rail-link.active::before {
+      content: '';
+      position: absolute;
+      left: -12px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 4px;
+      height: 24px;
+      background: #fff;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .rail-sidebar:hover .rail-link.active::before {
+      display: none;
+    }
+
+    /* Footer */
+    .rail-footer {
+      width: 100%;
+      padding: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .rail-footer .rail-link {
+      color: rgba(255, 150, 150, 0.6);
+    }
+
+    .rail-footer .rail-link:hover {
+      color: #ff6b6b;
+      background: rgba(255, 80, 80, 0.08);
+    }
+
+    /* ===== MAIN CONTENT ===== */
+    .admin-main-v2 {
+      flex: 1;
+      margin-left: 76px;
+      min-height: 100vh;
+      transition: margin-left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Top Bar */
+    .admin-topbar-v2 {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 18px 40px;
+      background: #fff;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .topbar-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .topbar-title .shield {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #fde8ec, #fff5f7);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .topbar-title .shield .material-icons-round {
+      font-size: 22px;
+      color: #C8102E;
+    }
+
+    .topbar-title h2 {
+      font-size: 20px;
+      font-weight: 800;
+      color: #191c1d;
+      letter-spacing: -0.4px;
+    }
+
+    .topbar-title p {
+      font-size: 12px;
+      color: #718096;
+      margin-top: 1px;
+    }
+
+    .topbar-search {
+      position: relative;
+      max-width: 340px;
+      flex: 1;
+    }
+
+    .topbar-search .material-icons-round {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 18px;
+      color: #a0aec0;
+    }
+
+    .topbar-search input {
+      width: 100%;
+      padding: 10px 16px 10px 44px;
+      border-radius: 999px;
+      border: 1px solid #e7e8e9;
+      background: #f8f9fa;
+      font-size: 13px;
+      font-family: inherit;
+      color: #191c1d;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .topbar-search input:focus {
+      outline: none;
+      background: #fff;
+      border-color: rgba(200, 16, 46, 0.2);
+      box-shadow: 0 0 0 4px rgba(200, 16, 46, 0.06);
+    }
+
+    .topbar-admin {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .topbar-admin-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #C8102E, #7B0A1E);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .topbar-admin-avatar .material-icons-round {
+      font-size: 18px;
+      color: #fff;
+    }
+
+    .topbar-admin-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: #191c1d;
+    }
+
+    /* Main Content */
+    .admin-body {
+      padding: 32px 40px;
+      animation: fadeInUp 0.4s ease-out;
+    }
+
+    /* ===== HERO STATS ===== */
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+
+    .hero-stat {
+      background: #fff;
+      border-radius: 12px;
+      padding: 22px 20px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 1px 3px rgba(26, 26, 46, 0.04);
+    }
+
+    .hero-stat::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 4px;
+      height: 100%;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .hero-stat:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(26, 26, 46, 0.08);
+    }
+
+    .hero-stat-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+    }
+
+    .hero-stat-icon .material-icons-round {
+      font-size: 22px;
+    }
+
+    .hero-stat-value {
+      font-size: 2rem;
+      font-weight: 900;
+      letter-spacing: -1px;
+      color: #191c1d;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .hero-stat-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #718096;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+
+    /* Stat color variants */
+    .hero-stat.total::before { background: #C8102E; }
+    .hero-stat.total .hero-stat-icon { background: #fde8ec; }
+    .hero-stat.total .hero-stat-icon .material-icons-round { color: #C8102E; }
+
+    .hero-stat.pending::before { background: #2563eb; }
+    .hero-stat.pending .hero-stat-icon { background: #dbeafe; }
+    .hero-stat.pending .hero-stat-icon .material-icons-round { color: #2563eb; }
+
+    .hero-stat.approved::before { background: #16a34a; }
+    .hero-stat.approved .hero-stat-icon { background: #dcfce7; }
+    .hero-stat.approved .hero-stat-icon .material-icons-round { color: #16a34a; }
+
+    .hero-stat.rejected::before { background: #dc2626; }
+    .hero-stat.rejected .hero-stat-icon { background: #fee2e2; }
+    .hero-stat.rejected .hero-stat-icon .material-icons-round { color: #dc2626; }
+
+    .hero-stat.flagged::before { background: #d97706; }
+    .hero-stat.flagged .hero-stat-icon { background: #fef3c7; }
+    .hero-stat.flagged .hero-stat-icon .material-icons-round { color: #d97706; }
+
+    /* ===== SECTION HEADER ===== */
+    .section-header-v2 {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .section-header-v2 .section-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-header-v2 h3 {
+      font-size: 18px;
+      font-weight: 800;
+      color: #191c1d;
+      letter-spacing: -0.3px;
+    }
+
+    .section-header-v2 .count-badge {
+      padding: 4px 12px;
+      background: #fde8ec;
+      color: #C8102E;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .section-header-v2 .filter-bar {
+      margin-bottom: 0;
+    }
+
+    /* ===== DATA TABLE V2 ===== */
+    .table-card-v2 {
+      background: #fff;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(26, 26, 46, 0.04);
+    }
+
+    .table-card-v2 .data-table thead tr {
+      background: linear-gradient(to right, #f8f9fa, #fff);
+    }
+
+    .table-card-v2 .data-table tbody tr {
+      border-left: 3px solid transparent;
+      transition: all 0.25s ease;
+    }
+
+    .table-card-v2 .data-table tbody tr:hover {
+      background: #fef5f6;
+      border-left-color: #C8102E;
+    }
+
+    /* ===== MOBILE TOGGLE ===== */
+    .mobile-toggle {
+      display: none;
+      position: fixed;
+      top: 18px;
+      left: 18px;
+      z-index: 300;
+      width: 42px;
+      height: 42px;
+      background: #fff;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .mobile-toggle .material-icons-round {
+      font-size: 22px;
+      color: #191c1d;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1200px) {
+      .hero-stats { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (max-width: 1024px) {
+      .rail-sidebar {
+        width: 0;
+        transform: translateX(-100%);
+      }
+
+      .rail-sidebar.open {
+        width: 240px;
+        transform: translateX(0);
+      }
+
+      .rail-sidebar.open .rail-brand,
+      .rail-sidebar.open .rail-profile-text,
+      .rail-sidebar.open .rail-link .link-text {
+        opacity: 1;
+      }
+
+      .admin-main-v2 {
+        margin-left: 0;
+      }
+
+      .mobile-toggle {
+        display: flex;
+      }
+
+      .admin-topbar-v2 {
+        padding-left: 72px;
+      }
+
+      .admin-body {
+        padding: 24px 20px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero-stats { grid-template-columns: repeat(2, 1fr); }
+      .admin-topbar-v2 { flex-wrap: wrap; gap: 12px; }
+      .topbar-search { max-width: 100%; }
+      .topbar-admin-name { display: none; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-stats { grid-template-columns: 1fr; }
+    }
+
+    /* ===== PRD VERIFICATION SUMMARY CARD ===== */
+    .prd-summary-card {
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 24px;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .prd-summary-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 5px;
+      height: 100%;
+    }
+
+    .prd-summary-card.prd-approved::before { background: #16a34a; }
+    .prd-summary-card.prd-rejected::before { background: #dc2626; }
+    .prd-summary-card.prd-flagged::before { background: #d97706; }
+
+    .prd-summary-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .prd-summary-title h4 {
+      font-size: 14px;
+      font-weight: 800;
+      color: #1e293b;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .prd-summary-title .prd-badge {
+      margin-left: auto;
+      padding: 5px 16px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .prd-badge.prd-status-approved {
+      background: #dcfce7;
+      color: #15803d;
+      border: 1px solid #bbf7d0;
+    }
+
+    .prd-badge.prd-status-rejected {
+      background: #fee2e2;
+      color: #b91c1c;
+      border: 1px solid #fecaca;
+    }
+
+    .prd-badge.prd-status-flagged {
+      background: #fef3c7;
+      color: #92400e;
+      border: 1px solid #fde68a;
+    }
+
+    .prd-summary-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .prd-check-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      background: #fff;
+      border-radius: 10px;
+      border: 1px solid #e7e8e9;
+      transition: all 0.2s ease;
+    }
+
+    .prd-check-item:hover {
+      border-color: #cbd5e1;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    .prd-check-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .prd-check-value {
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .prd-check-value.pass { color: #16a34a; }
+    .prd-check-value.fail { color: #dc2626; }
+    .prd-check-value.warn { color: #d97706; }
+    .prd-check-value.neutral { color: #64748b; }
+
+    .prd-distance-item {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      background: #fff;
+      border-radius: 10px;
+      border: 1px solid #e7e8e9;
+    }
+
+    @media (max-width: 600px) {
+      .prd-summary-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ===== LOADING ANIMATION ===== */
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .loading-spinner {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      border: 3px solid #e7e8e9;
+      border-top: 3px solid #0F3460;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    .loading-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      padding: 40px;
+      text-align: center;
+    }
+
+    .loading-container .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid #e7e8e9;
+      border-top: 3px solid #0F3460;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    .loading-container .text {
+      color: #718096;
+      font-size: 14px;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body class="admin-panel">
+  <!-- COMPACT RAIL SIDEBAR -->
+  <aside class="rail-sidebar" id="sidebar">
+    <div class="rail-logo">CU</div>
+    <div class="rail-brand">
+      <h4>DL Verification</h4>
+      <span>Admin Panel</span>
+    </div>
+
+    <div class="rail-profile">
+      <div class="rail-avatar">
+        <span class="material-icons-round">admin_panel_settings</span>
+      </div>
+      <div class="rail-profile-text">
+        <h5 id="adminName">Administrator</h5>
+        <span>System Admin</span>
+      </div>
+    </div>
+
+    <nav class="rail-nav">
+      <a href="/admin-dashboard" class="rail-link active">
+        <span class="material-icons-round">dashboard</span>
+        <span class="link-text">Dashboard</span>
+      </a>
+    </nav>
+
+    <div class="rail-footer">
+      <button class="rail-link" id="logoutBtn">
+        <span class="material-icons-round">logout</span>
+        <span class="link-text">Logout</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Mobile Toggle -->
+  <button class="mobile-toggle" id="sidebarToggle">
+    <span class="material-icons-round">menu</span>
+  </button>
+
+  <!-- MAIN CONTENT -->
+  <div class="admin-main-v2">
+    <!-- Top Bar -->
+    <div class="admin-topbar-v2">
+      <div class="topbar-title">
+        <div class="shield">
+          <span class="material-icons-round">verified_user</span>
+        </div>
+        <div>
+          <h2>Verification Dashboard</h2>
+          <p>Review and manage duty leave applications</p>
+        </div>
+      </div>
+
+      <div class="topbar-search">
+        <span class="material-icons-round">search</span>
+        <input type="text" id="searchInput" placeholder="Search student, UID, or event...">
+      </div>
+
+      <div class="topbar-admin">
+        <div class="topbar-admin-avatar">
+          <span class="material-icons-round">person</span>
+        </div>
+        <span class="topbar-admin-name" id="adminNameTop">Admin</span>
+      </div>
+    </div>
+
+    <div class="admin-body">
+      <!-- HERO STATS -->
+      <div class="hero-stats" id="adminStats">
+        <div class="hero-stat total">
+          <div class="hero-stat-icon">
+            <span class="material-icons-round">leaderboard</span>
+          </div>
+          <div class="hero-stat-value" id="statTotal">0</div>
+          <div class="hero-stat-label">Total Applications</div>
+        </div>
+        <div class="hero-stat pending">
+          <div class="hero-stat-icon">
+            <span class="material-icons-round">pending_actions</span>
+          </div>
+          <div class="hero-stat-value" id="statPending">0</div>
+          <div class="hero-stat-label">Pending Review</div>
+        </div>
+        <div class="hero-stat approved">
+          <div class="hero-stat-icon">
+            <span class="material-icons-round">check_circle</span>
+          </div>
+          <div class="hero-stat-value" id="statApproved">0</div>
+          <div class="hero-stat-label">Approved</div>
+        </div>
+        <div class="hero-stat rejected">
+          <div class="hero-stat-icon">
+            <span class="material-icons-round">cancel</span>
+          </div>
+          <div class="hero-stat-value" id="statRejected">0</div>
+          <div class="hero-stat-label">Rejected</div>
+        </div>
+        <div class="hero-stat flagged">
+          <div class="hero-stat-icon">
+            <span class="material-icons-round">flag</span>
+          </div>
+          <div class="hero-stat-value" id="statFlagged">0</div>
+          <div class="hero-stat-label">Flagged</div>
+        </div>
+      </div>
+
+      <!-- Section Header -->
+      <div class="section-header-v2">
+        <div class="section-left">
+          <h3>All Applications</h3>
+          <span class="count-badge" id="pendingBadge">0 Pending</span>
+        </div>
+        <div class="filter-bar" id="filterBar">
+          <button class="filter-btn active" data-filter="all"><span class="material-icons-round" style="font-size:16px">apps</span> All</button>
+          <button class="filter-btn" data-filter="pending"><span class="material-icons-round" style="font-size:16px">hourglass_empty</span> Pending</button>
+          <button class="filter-btn" data-filter="approved"><span class="material-icons-round" style="font-size:16px">check_circle</span> Approved</button>
+          <button class="filter-btn" data-filter="rejected"><span class="material-icons-round" style="font-size:16px">cancel</span> Rejected</button>
+          <button class="filter-btn" data-filter="flagged"><span class="material-icons-round" style="font-size:16px">flag</span> Flagged</button>
+        </div>
+      </div>
+
+      <!-- Data Table -->
+      <div class="table-card-v2">
+        <table class="data-table" id="requestsTable">
+          <thead>
+            <tr>
+              <th>DL ID</th>
+              <th>Student</th>
+              <th>Event</th>
+              <th>Type</th>
+              <th>Campus</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="requestsBody">
+            <tr><td colspan="8" style="text-align: center; padding: 40px;"><div class="spinner"></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="page-footer" style="margin-top: 32px;">
+        © 2026 <a href="#">Chandigarh University</a> — Admin Verification Panel
+      </div>
+    </div>
+  </div>
+
+  <!-- Verification Modal -->
+  <div class="modal-overlay" id="verifyModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3><span class="material-icons-round" style="font-size: 22px; vertical-align: middle; margin-right: 6px;">fact_check</span> DL Verification — <span id="modalDLId">DL-0000</span></h3>
+        <button class="modal-close" id="modalClose">✕</button>
+      </div>
+      <div class="modal-body" id="modalBody">
+        <div class="spinner"></div>
+      </div>
+      <div class="modal-footer" id="modalFooter"></div>
+    </div>
+  </div>
+
+  <!-- Custom Action Confirmation Modal -->
+  <div id="actionModal" class="custom-action-modal">
+    <div class="modal-content">
+      <span class="material-icons-round" style="font-size: 48px; color: #C8102E; margin-bottom: 12px;">warning_amber</span>
+      <h3 id="modalTitle">Confirm Action</h3>
+      <p id="modalText">Are you sure you want to perform this action?</p>
+      <button id="confirmBtn" class="btn-danger">Confirm</button>
+      <button onclick="closeModal()" class="btn-secondary">Cancel</button>
+    </div>
+  </div>
+
+  <script src="js/admin-dashboard.js"></script>
+  <script>
+    // Update admin name in top bar too
+    const nameElem = document.getElementById('adminName');
+    if (nameElem) {
+      const topName = document.getElementById('adminNameTop');
+      if (topName) {
+        new MutationObserver(() => {
+          topName.textContent = nameElem.textContent;
+        }).observe(nameElem, { childList: true, characterData: true, subtree: true });
+      }
+    }
+
+    // Update pending badge
+    const pendingElem = document.getElementById('statPending');
+    if (pendingElem) {
+      new MutationObserver(() => {
+        const badge = document.getElementById('pendingBadge');
+        if (badge) badge.textContent = pendingElem.textContent + ' Pending';
+      }).observe(pendingElem, { childList: true, characterData: true, subtree: true });
+    }
+
+    // Sidebar toggle for mobile
+    document.getElementById('sidebarToggle')?.addEventListener('click', () => {
+      document.getElementById('sidebar').classList.toggle('open');
+    });
+  </script>
+</body>
+</html>

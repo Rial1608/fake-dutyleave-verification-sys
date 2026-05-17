@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Chandigarh University Duty Leave Verification System - Login">
+  <title>DL Verification System — Login</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* ===== CREATIVE SPLIT-SCREEN LOGIN ===== */
+    .login-split {
+      display: flex;
+      min-height: 100vh;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* LEFT PANEL — Hero Branding */
+    .login-hero {
+      flex: 0 0 58%;
+      background: linear-gradient(145deg, #C8102E 0%, #9E001F 40%, #7B0A1E 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 60px 70px;
+      position: relative;
+      overflow: hidden;
+      color: #fff;
+    }
+
+    /* Decorative floating shapes */
+    .login-hero .deco-circle {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      pointer-events: none;
+    }
+
+    .login-hero .deco-circle:nth-child(1) {
+      width: 400px; height: 400px;
+      top: -120px; right: -80px;
+      background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
+      animation: floatSlow 18s infinite ease-in-out;
+    }
+
+    .login-hero .deco-circle:nth-child(2) {
+      width: 250px; height: 250px;
+      bottom: 80px; left: -60px;
+      background: radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%);
+      animation: floatSlow 22s infinite ease-in-out reverse;
+    }
+
+    .login-hero .deco-circle:nth-child(3) {
+      width: 160px; height: 160px;
+      top: 40%; right: 15%;
+      background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+      animation: floatSlow 15s infinite ease-in-out;
+    }
+
+    .login-hero .deco-circle:nth-child(4) {
+      width: 80px; height: 80px;
+      top: 20%; left: 60%;
+      background: rgba(255, 255, 255, 0.04);
+      animation: floatSlow 12s infinite ease-in-out reverse;
+    }
+
+    /* Mesh grid overlay */
+    .login-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+
+    @keyframes floatSlow {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      25% { transform: translate(20px, -20px) scale(1.05); }
+      50% { transform: translate(-10px, 15px) scale(0.97); }
+      75% { transform: translate(15px, 10px) scale(1.03); }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 18px;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 24px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 40px;
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      width: fit-content;
+    }
+
+    .hero-badge .badge-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #4ade80;
+      animation: pulseSubtle 2s infinite;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-content h1 {
+      font-size: 3.2rem;
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+    }
+
+    .hero-content h1 span {
+      display: block;
+      font-size: 1.4rem;
+      font-weight: 600;
+      letter-spacing: 0;
+      opacity: 0.85;
+      margin-top: 4px;
+    }
+
+    .hero-tagline {
+      font-size: 1.1rem;
+      font-weight: 400;
+      line-height: 1.7;
+      opacity: 0.8;
+      max-width: 440px;
+      margin-bottom: 50px;
+    }
+
+    .hero-features {
+      display: flex;
+      gap: 28px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-feature {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 18px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: var(--transition-fast);
+      backdrop-filter: blur(4px);
+    }
+
+    .hero-feature:hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: translateY(-2px);
+    }
+
+    .hero-feature .feat-icon {
+      font-size: 20px;
+    }
+
+    .hero-feature .feat-text {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+
+    /* RIGHT PANEL — Login Form */
+    .login-form-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 50px 50px;
+      background: #fff;
+      position: relative;
+    }
+
+    .login-form-wrapper {
+      width: 100%;
+      max-width: 380px;
+    }
+
+    .login-form-wrapper .form-header {
+      margin-bottom: 36px;
+    }
+
+    .login-form-wrapper .form-header .cu-badge {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, #C8102E, #7B0A1E);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 24px;
+      box-shadow: 0 8px 24px rgba(200, 16, 46, 0.25);
+    }
+
+    .login-form-wrapper .form-header h2 {
+      font-size: 28px;
+      font-weight: 800;
+      color: #191c1d;
+      margin-bottom: 6px;
+      letter-spacing: -0.3px;
+    }
+
+    .login-form-wrapper .form-header p {
+      font-size: 14px;
+      color: #718096;
+      line-height: 1.5;
+    }
+
+    /* Input with icon */
+    .input-with-icon {
+      position: relative;
+    }
+
+    .input-with-icon .input-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 16px;
+      color: #A0AEC0;
+      pointer-events: none;
+      transition: var(--transition-fast);
+    }
+
+    .input-with-icon .form-control {
+      padding-left: 46px;
+    }
+
+    .input-with-icon .form-control:focus ~ .input-icon,
+    .input-with-icon .form-control:not(:placeholder-shown) ~ .input-icon {
+      color: #C8102E;
+    }
+
+    /* Forgot password link */
+    .forgot-link {
+      display: block;
+      text-align: right;
+      font-size: 13px;
+      color: #C8102E;
+      text-decoration: none;
+      font-weight: 600;
+      margin-top: -10px;
+      margin-bottom: 24px;
+      transition: var(--transition-fast);
+    }
+
+    .forgot-link:hover {
+      color: #9E001F;
+      text-decoration: underline;
+    }
+
+    /* Form footer */
+    .form-footer {
+      text-align: center;
+      margin-top: 32px;
+      font-size: 12px;
+      color: #A0AEC0;
+      letter-spacing: 0.3px;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      .login-split {
+        flex-direction: column;
+      }
+
+      .login-hero {
+        flex: none;
+        padding: 40px 30px;
+        min-height: 280px;
+      }
+
+      .hero-content h1 {
+        font-size: 2rem;
+      }
+
+      .hero-tagline {
+        font-size: 0.9rem;
+        margin-bottom: 24px;
+      }
+
+      .hero-features {
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .hero-feature {
+        padding: 8px 12px;
+        font-size: 12px;
+      }
+
+      .login-form-panel {
+        padding: 36px 24px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .login-hero {
+        padding: 30px 20px;
+        min-height: 200px;
+      }
+
+      .hero-content h1 {
+        font-size: 1.6rem;
+      }
+
+      .hero-features {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-split">
+    <!-- LEFT: Hero Branding Panel -->
+    <div class="login-hero">
+      <!-- Decorative Elements -->
+      <div class="deco-circle"></div>
+      <div class="deco-circle"></div>
+      <div class="deco-circle"></div>
+      <div class="deco-circle"></div>
+
+      <div class="hero-content">
+
+        <h1>
+          Chandigarh
+          University
+          <span>Duty Leave Verification System</span>
+        </h1>
+
+        <p class="hero-tagline">
+          Streamline your academic journey with our automated verification portal. Apply, track, and manage duty leave requests seamlessly.
+        </p>
+
+        <div class="hero-features">
+          <div class="hero-feature">
+            <span class="feat-icon">🔒</span>
+            <span class="feat-text">Secure</span>
+          </div>
+          <div class="hero-feature">
+            <span class="feat-icon">⚡</span>
+            <span class="feat-text">Fast</span>
+          </div>
+          <div class="hero-feature">
+            <span class="feat-icon">📊</span>
+            <span class="feat-text">Smart Verification</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Login Form Panel -->
+    <div class="login-form-panel">
+      <div class="login-form-wrapper">
+        <div class="form-header">
+          <div class="cu-badge">CU</div>
+          <h2>Welcome Back</h2>
+          <p>Sign in to your account to continue</p>
+        </div>
+
+        <div class="role-toggle">
+          <div class="toggle-group" id="roleToggle">
+            <button type="button" class="toggle-btn active" data-role="student">🎓 Student</button>
+            <button type="button" class="toggle-btn" data-role="admin">🔑 Admin</button>
+          </div>
+        </div>
+
+        <div id="loginError" class="login-error"></div>
+
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="studentId">User ID</label>
+            <div class="input-with-icon">
+              <input type="text" id="studentId" class="form-control" placeholder="Enter your UID (e.g. 25BCS13539)" required>
+              <span class="input-icon">👤</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <div class="input-with-icon">
+              <input type="password" id="password" class="form-control" placeholder="Enter your password" required>
+              <span class="input-icon">🔒</span>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; padding: 14px; font-size: 15px;">
+            Sign In →
+          </button>
+        </form>
+
+        <div class="form-footer">
+          © 2026 Chandigarh University — DL Verification System
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/login.js"></script>
+</body>
+</html>

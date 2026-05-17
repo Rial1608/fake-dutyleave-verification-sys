@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Duty Leave Status - Track your DL requests">
+  <title>DL Status — DL Verification</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="bg-animation">
+    <div class="orb"></div>
+    <div class="orb"></div>
+    <div class="orb"></div>
+  </div>
+
+  <nav class="navbar">
+    <a href="/student-dashboard" class="brand">
+      <div class="logo-icon">CU</div>
+      <div>
+        <h1>DL Verification</h1>
+        <span>Student Portal</span>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="/student-dashboard"><span class="material-icons-round" style="font-size:18px;vertical-align:middle;margin-right:4px">dashboard</span>Dashboard</a>
+      <a href="/apply-dl"><span class="material-icons-round" style="font-size:18px;vertical-align:middle;margin-right:4px">note_add</span>Apply DL</a>
+      <a href="/dl-status" class="active"><span class="material-icons-round" style="font-size:18px;vertical-align:middle;margin-right:4px">track_changes</span>DL Status</a>
+      <button class="btn-logout" id="logoutBtn"><span class="material-icons-round" style="font-size:16px;vertical-align:middle;margin-right:4px">logout</span>Logout</button>
+    </div>
+  </nav>
+
+  <div class="main-content">
+    <div class="page-header">
+      <h2><span class="material-icons-round" style="font-size:30px;vertical-align:middle;margin-right:10px;color:var(--accent-primary)">fact_check</span>Duty Leave Status</h2>
+      <p>Track all your duty leave applications</p>
+    </div>
+
+    <!-- Mini Stats -->
+    <div class="mini-stats-bar" id="miniStats">
+      <div class="mini-stat"><span class="material-icons-round" style="font-size:18px;color:var(--accent-primary)">leaderboard</span> Total: <span class="mini-stat-value" id="miniTotal">0</span></div>
+      <div class="mini-stat"><span class="material-icons-round" style="font-size:18px;color:var(--info)">pending_actions</span> Pending: <span class="mini-stat-value" id="miniPending">0</span></div>
+      <div class="mini-stat"><span class="material-icons-round" style="font-size:18px;color:var(--success)">check_circle</span> Approved: <span class="mini-stat-value" id="miniApproved">0</span></div>
+      <div class="mini-stat"><span class="material-icons-round" style="font-size:18px;color:var(--danger)">cancel</span> Rejected: <span class="mini-stat-value" id="miniRejected">0</span></div>
+    </div>
+
+    <div class="filter-bar" id="filterBar">
+      <button class="filter-btn active" data-filter="all"><span class="material-icons-round" style="font-size:16px">apps</span> All</button>
+      <button class="filter-btn" data-filter="pending"><span class="material-icons-round" style="font-size:16px">hourglass_empty</span> Pending</button>
+      <button class="filter-btn" data-filter="approved"><span class="material-icons-round" style="font-size:16px">check_circle</span> Approved</button>
+      <button class="filter-btn" data-filter="rejected"><span class="material-icons-round" style="font-size:16px">cancel</span> Rejected</button>
+      <button class="filter-btn" data-filter="flagged"><span class="material-icons-round" style="font-size:16px">flag</span> Flagged</button>
+    </div>
+
+    <div id="dlList">
+      <div class="spinner"></div>
+    </div>
+
+    <div class="page-footer">
+      © 2026 <a href="#">Chandigarh University</a> — DL Verification System
+    </div>
+  </div>
+
+  <script src="js/dl-status.js"></script>
+</body>
+</html>

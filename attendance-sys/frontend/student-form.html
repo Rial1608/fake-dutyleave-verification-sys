@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Form</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        /* ════════────────────────────────────────────────────────────────
+           PREMIUM STUDENT FORM STYLES - GOOGLE FORMS + STITCH DESIGN
+           ════════════════──────────────────────────────────────────────── */
+
+        :root {
+            --primary: #C8102E;
+            --primary-hover: #A50026;
+            --white: #FFFFFF;
+            --bg: #F8F9FA;
+            --text: #1A1A1A;
+            --text-light: #666666;
+            --border-light: #E0E0E0;
+            --shadow-md: 0 8px 20px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 12px 28px rgba(0, 0, 0, 0.12);
+        }
+
+        .student-form-wrapper {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .student-form-container {
+            background: linear-gradient(135deg, rgba(200, 16, 46, 0.02) 0%, rgba(0, 102, 204, 0.02) 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .form-card-student {
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            margin: 20px;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-card-header {
+            padding: 40px 32px;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(200, 16, 46, 0.08) 0%, rgba(0, 102, 204, 0.08) 100%);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .event-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            display: inline-block;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .form-card-header h1 {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .form-card-header p {
+            color: var(--text-light);
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .attendance-form {
+            padding: 40px 32px;
+        }
+
+        .form-field-group {
+            margin-bottom: 28px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-field-group label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 8px;
+            text-transform: none;
+            letter-spacing: 0;
+        }
+
+        .form-field-group input,
+        .form-field-group select,
+        .form-field-group textarea {
+            padding: 12px 14px;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            font-size: 14px;
+            color: var(--text);
+            background: var(--white);
+            font-family: inherit;
+            transition: all 0.2s ease;
+        }
+
+        .form-field-group input:focus,
+        .form-field-group select:focus,
+        .form-field-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(200, 16, 46, 0.1);
+        }
+
+        .form-field-group input::placeholder {
+            color: #999;
+        }
+
+        .location-status {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 20px;
+            background: #ECFDF5;
+            border-left: 4px solid #10B981;
+            border-radius: 8px;
+            margin-bottom: 32px;
+        }
+
+        .location-icon {
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .location-text {
+            flex: 1;
+        }
+
+        .location-title {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text);
+            margin-bottom: 2px;
+        }
+
+        .location-subtitle {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        .location-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #10B981;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #10B981;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 14px 24px;
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(200, 16, 46, 0.15);
+            margin-top: 20px;
+        }
+
+        .btn-submit:hover:not(:disabled) {
+            background: var(--primary-hover);
+            box-shadow: 0 6px 20px rgba(200, 16, 46, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .btn-submit:active:not(:disabled) {
+            transform: translateY(0);
+            box-shadow: 0 2px 8px rgba(200, 16, 46, 0.15);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .success-message {
+            padding: 32px;
+            text-align: center;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .success-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            display: inline-block;
+        }
+
+        .success-message h2 {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+
+        .success-message p {
+            color: var(--text-light);
+            margin-bottom: 24px;
+        }
+
+        .success-details-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .detail-item {
+            background: var(--bg);
+            padding: 16px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .detail-label {
+            display: block;
+            font-size: 12px;
+            color: var(--text-light);
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .detail-value {
+            display: block;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            backdrop-filter: blur(4px);
+        }
+
+        .loading-spinner {
+            text-align: center;
+            background: var(--white);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid var(--border-light);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 16px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-spinner p {
+            color: var(--text-light);
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* ════════────────────────────────────────────────────────────────
+           RESPONSIVE DESIGN
+           ════════════──────────────────────────────────────────────────── */
+
+        @media (max-width: 768px) {
+            .form-card-student {
+                margin: 16px;
+                border-radius: 12px;
+            }
+
+            .form-card-header {
+                padding: 24px 20px;
+            }
+
+            .form-card-header h1 {
+                font-size: 22px;
+            }
+
+            .attendance-form {
+                padding: 24px 20px;
+            }
+
+            .form-field-group {
+                margin-bottom: 20px;
+            }
+
+            .location-status {
+                flex-direction: column;
+                text-align: center;
+                border-left: none;
+                border-top: 4px solid #10B981;
+                gap: 12px;
+            }
+
+            .success-details-info {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .form-card-header {
+                padding: 20px 16px;
+            }
+
+            .event-icon {
+                font-size: 40px;
+            }
+
+            .form-card-header h1 {
+                font-size: 20px;
+            }
+
+            .attendance-form {
+                padding: 20px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="student-form-container">
+        <!-- Background Pattern -->
+        <div class="form-background"></div>
+
+        <!-- Form Card -->
+        <div class="form-wrapper">
+            <div class="form-card-student">
+                <!-- Header -->
+                <div class="form-card-header">
+                    <div class="event-icon">📍</div>
+                    <h1 id="form-title">Event Attendance</h1>
+                    <p id="form-description">Please fill in your details to mark attendance</p>
+                </div>
+
+                <!-- Status Message -->
+                <div id="status-message" class="status-message"></div>
+
+                <!-- Location Status -->
+                <div id="location-status" class="location-status">
+                    <div class="location-icon">📍</div>
+                    <div class="location-text">
+                        <p class="location-title">Location Required</p>
+                        <p class="location-subtitle">Your GPS location will be captured for verification</p>
+                    </div>
+                    <div class="location-indicator" id="location-indicator">
+                        <span class="dot"></span>
+                    </div>
+                </div>
+
+                <!-- Form Content -->
+                <form id="attendance-form" class="attendance-form">
+                    <!-- Dynamic Fields Will Be Inserted Here -->
+                    <div id="form-fields-container"></div>
+
+                    <!-- Location Info Display (Hidden) -->
+                    <div id="location-display" class="location-display" style="display: none;">
+                        <div class="location-info">
+                            <label>Your Location:</label>
+                            <div class="location-coords">
+                                <span id="location-lat-display"></span>
+                                <span id="location-lng-display"></span>
+                                <span id="location-accuracy-display"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn-submit" id="submit-form-btn">
+                        <span class="btn-icon">✅</span>
+                        <span class="btn-text">Submit Attendance</span>
+                        <span class="btn-loader"></span>
+                    </button>
+                </form>
+
+                <!-- Success Message -->
+                <div id="success-message" class="success-message" style="display: none;">
+                    <div class="success-icon">✅</div>
+                    <h2>Attendance recorded successfully</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay" style="display: none;">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Processing your attendance...</p>
+        </div>
+    </div>
+
+    <script src="/js/student-form.js"></script>
+</body>
+</html>

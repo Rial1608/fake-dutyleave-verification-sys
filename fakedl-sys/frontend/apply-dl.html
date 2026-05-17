@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Apply for Duty Leave - DL Verification System">
+  <title>Apply Duty Leave — DL Verification</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* ===== LOCATION HELPER TEXT ===== */
+    .location-helper-text {
+      margin-top: 6px;
+      font-size: 12px;
+      color: var(--text-muted, #718096);
+      display: flex;
+      align-items: center;
+      opacity: 0.7;
+      transition: opacity 0.3s;
+    }
+
+    /* ===== MAP SECTION ===== */
+    .map-picker-section {
+      animation: mapSlideDown 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    @keyframes mapSlideDown {
+      from { opacity: 0; transform: translateY(-12px); max-height: 0; }
+      to { opacity: 1; transform: translateY(0); max-height: 600px; }
+    }
+    .map-section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .btn-collapse-map {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      border: 1px solid var(--glass-border, #e2e8f0);
+      background: rgba(255,255,255,0.6);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      color: var(--text-secondary, #4a5568);
+    }
+    .btn-collapse-map:hover {
+      background: rgba(var(--accent-primary-rgb, 180,30,45), 0.08);
+      border-color: var(--accent-primary, #C8102E);
+      color: var(--accent-primary, #C8102E);
+    }
+
+    /* Map container hover glow */
+    #mapContainer {
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    #mapContainer:hover {
+      border-color: var(--accent-primary, #C8102E);
+      box-shadow: 0 0 0 3px rgba(var(--accent-primary-rgb, 180,30,45), 0.08);
+    }
+
+    /* Coordinate display */
+    .map-coord-display {
+      margin-top: 10px;
+      font-size: 12px;
+      color: var(--text-secondary, #4a5568);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      background: rgba(var(--accent-primary-rgb, 180,30,45), 0.04);
+      border-radius: 8px;
+      border: 1px solid rgba(var(--accent-primary-rgb, 180,30,45), 0.08);
+    }
+
+    .map-coord-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 10px;
+      border-radius: 6px;
+      background: rgba(var(--accent-primary-rgb, 180,30,45), 0.1);
+      font-weight: 600;
+      font-size: 12px;
+      color: var(--accent-primary, #C8102E);
+    }
+
+    /* ===== Google Places Autocomplete dropdown styling ===== */
+    .pac-container {
+      background-color: #ffffff !important;
+      color: #000000 !important;
+      font-family: 'Inter', sans-serif !important;
+      border-radius: 12px !important;
+      border: 1px solid #e2e8f0 !important;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12) !important;
+      margin-top: 4px !important;
+      overflow: hidden !important;
+      z-index: 99999 !important;
+    }
+    .pac-item {
+      background-color: #ffffff !important;
+      color: #1a1a1a !important;
+      padding: 12px 16px !important;
+      font-size: 14px !important;
+      border-top: 1px solid #f0f0f0 !important;
+      cursor: pointer !important;
+      transition: background-color 0.15s ease !important;
+      line-height: 1.5 !important;
+    }
+    .pac-item:first-child {
+      border-top: none !important;
+    }
+    .pac-item:hover {
+      background-color: #fef2f2 !important;
+    }
+    .pac-item-selected {
+      background-color: #fef2f2 !important;
+    }
+    .pac-icon {
+      margin-right: 12px !important;
+    }
+    .pac-item-query {
+      color: #1a1a1a !important;
+      font-weight: 600 !important;
+      font-size: 14px !important;
+    }
+    .pac-matched {
+      color: var(--accent-primary, #C8102E) !important;
+      font-weight: 700 !important;
+    }
+    .pac-item span:not(.pac-item-query):not(.pac-icon):not(.pac-matched) {
+      color: #718096 !important;
+      font-size: 12px !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-animation">
+    <div class="orb"></div>
+    <div class="orb"></div>
+    <div class="orb"></div>
+  </div>
+
+  <nav class="navbar">
+    <a href="/student-dashboard" class="brand">
+      <div class="logo-icon">CU</div>
+      <div>
+        <h1>DL Verification</h1>
+        <span>Student Portal</span>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="/student-dashboard"><span class="material-icons-round" style="font-size:18px;vertical-align:middle;margin-right:4px">dashboard</span>Dashboard</a>
+      <a href="/apply-dl" class="active"><span class="material-icons-round" style="font-size:18px;vertical-align:middle;margin-right:4px">note_add</span>Apply DL</a>
+      <a href="/dl-status"><span class="material-icons-round" style="font-size:18px;vertical-align:middle;margin-right:4px">track_changes</span>DL Status</a>
+      <button class="btn-logout" id="logoutBtn"><span class="material-icons-round" style="font-size:16px;vertical-align:middle;margin-right:4px">logout</span>Logout</button>
+    </div>
+  </nav>
+
+  <div class="main-content" style="max-width: 800px;">
+    <div class="page-header">
+      <h2><span class="material-icons-round" style="font-size:30px;vertical-align:middle;margin-right:10px;color:var(--accent-primary)">assignment_add</span>Apply for Duty Leave</h2>
+      <p>Fill in the event details — DL type and campus type are auto-detected</p>
+    </div>
+
+    <!-- Step Labels -->
+    <div class="steps-label-bar">
+      <span class="step-label active" data-step="1"><span class="material-icons-round" style="font-size:16px;vertical-align:middle;margin-right:4px">event</span>Event Details</span>
+      <span class="step-label" data-step="2"><span class="material-icons-round" style="font-size:16px;vertical-align:middle;margin-right:4px">upload_file</span>Documents</span>
+      <span class="step-label" data-step="3"><span class="material-icons-round" style="font-size:16px;vertical-align:middle;margin-right:4px">preview</span>Review</span>
+    </div>
+    <!-- Step Indicators (3 steps now) -->
+    <div class="steps-indicator">
+      <div class="step-dot active" data-step="1"></div>
+      <div class="step-dot" data-step="2"></div>
+      <div class="step-dot" data-step="3"></div>
+    </div>
+
+    <form id="dlForm" enctype="multipart/form-data">
+      <!-- Step 1: Event Details -->
+      <div class="form-step active" id="step1">
+        <div class="glass-card" style="padding: 32px;">
+          <div class="step-header">
+            <h3><span class="material-icons-round" style="font-size:24px;vertical-align:middle;margin-right:8px;color:var(--accent-primary)">event_note</span>Step 1: Event Details</h3>
+            <p>Provide information about the event</p>
+          </div>
+
+          <div class="form-group">
+            <label for="eventName"><span class="material-icons-round" style="font-size:14px;vertical-align:middle;margin-right:4px">badge</span>Event Name</label>
+            <input type="text" id="eventName" class="form-control" placeholder="e.g. National Hackathon 2026" required>
+          </div>
+
+          <div class="form-group">
+            <label for="eventId"><span class="material-icons-round" style="font-size:14px;vertical-align:middle;margin-right:4px">fingerprint</span>Event ID (from Attendance System)</label>
+            <input type="text" id="eventId" class="form-control" placeholder="e.g. event_1712345678_abc123 (optional — improves verification accuracy)">
+            <div style="margin-top:4px;font-size:11px;color:#718096;display:flex;align-items:center;gap:4px;">
+              <span class="material-icons-round" style="font-size:12px">info_outline</span>
+              Enter the Event ID shown in your attendance confirmation for accurate verification
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="eventDate"><span class="material-icons-round" style="font-size:14px;vertical-align:middle;margin-right:4px">calendar_today</span>Event Date</label>
+            <input type="date" id="eventDate" class="form-control" required>
+          </div>
+
+          <div class="form-group" style="position:relative;">
+            <label for="eventLocation"><span class="material-icons-round" style="font-size:14px;vertical-align:middle;margin-right:4px">location_on</span>Event Location</label>
+            <input type="text" id="eventLocation" class="form-control" placeholder="Start typing a location... e.g. GBP Block, Chandigarh University" autocomplete="off">
+            <div id="locationHelperText" class="location-helper-text">
+              <span class="material-icons-round" style="font-size:13px;vertical-align:middle;margin-right:4px">info_outline</span>
+              Select exact location on map for accurate verification
+            </div>
+          </div>
+
+          <div id="geocodeStatus" class="geocode-status" style="display: none;"></div>
+
+          <!-- Integrated Map Picker — auto-opens on location focus -->
+          <div id="mapPickerSection" class="map-picker-section" style="display: none; margin-top: 12px;">
+            <div class="map-section-header">
+              <label style="display:flex;align-items:center;font-size:13px;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px;margin:0;">
+                <span class="material-icons-round" style="font-size:15px;margin-right:6px;color:var(--accent-primary)">map</span>Pin Event Location
+              </label>
+              <button type="button" id="toggleMapBtn" class="btn-collapse-map" onclick="toggleMapPicker()">
+                <span class="material-icons-round" style="font-size:16px">expand_less</span>
+              </button>
+            </div>
+            <div id="mapContainer" style="width:100%;height:380px;border-radius:12px;border:2px solid var(--glass-border);overflow:hidden;position:relative;margin-top:8px;">
+              <div id="mapLoading" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.05);z-index:10;">
+                <div style="text-align:center;">
+                  <div class="spinner" style="margin:0 auto 8px;"></div>
+                  <span style="color:var(--text-secondary);font-size:13px;">Loading Google Maps...</span>
+                </div>
+              </div>
+              <div id="googleMap" style="width:100%;height:100%;"></div>
+            </div>
+            <div id="mapCoordDisplay" class="map-coord-display">
+              <span class="material-icons-round" style="font-size:14px;color:var(--accent-primary)">my_location</span>
+              <span id="mapCoordText">Click on the map or drag the marker to select a location</span>
+            </div>
+          </div>
+
+          <input type="hidden" id="eventLat">
+          <input type="hidden" id="eventLng">
+          <input type="hidden" id="mapSelected" value="0">
+
+          <!-- Auto-detected badges -->
+          <div id="autoDetectedSection" style="display: none; margin-top: 20px;">
+            <label style="display: block; font-size: 13px; font-weight: 600; color: var(--text-secondary); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px;"><span class="material-icons-round" style="font-size:14px;vertical-align:middle;margin-right:4px">auto_awesome</span>Auto-Detected</label>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+              <div class="auto-badge" id="autoDLType">
+                <span class="auto-badge-label">DL Type</span>
+                <span class="auto-badge-value" id="autoDLTypeValue">—</span>
+              </div>
+              <div class="auto-badge" id="autoCampusType">
+                <span class="auto-badge-label">Campus Type</span>
+                <span class="auto-badge-value" id="autoCampusTypeValue">—</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Coordinator approval for Pre-DL -->
+          <div class="form-group" id="coordinatorGroup" style="display: none; margin-top: 20px;">
+            <label class="checkbox-group">
+              <input type="checkbox" id="coordinatorApproval">
+              <span>I have obtained Coordinator / ACO / HOD Approval for this Pre-DL</span>
+            </label>
+          </div>
+
+          <div class="step-actions">
+            <div></div>
+            <button type="button" class="btn btn-primary" onclick="nextStep(2)">Next <span class="material-icons-round" style="font-size:18px;vertical-align:middle">arrow_forward</span></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: Upload Documents -->
+      <div class="form-step" id="step2">
+        <div class="glass-card" style="padding: 32px;">
+          <div class="step-header">
+            <h3><span class="material-icons-round" style="font-size:24px;vertical-align:middle;margin-right:8px;color:var(--accent-primary)">cloud_upload</span>Step 2: Upload Supporting Documents</h3>
+            <p id="uploadDescription">Upload the required supporting documents</p>
+          </div>
+
+          <!-- Post-DL Fields -->
+          <div id="postDlUploads" style="display: none;">
+            <div class="form-group" id="gpsUploadGroup">
+              <label><span class="material-icons-round" style="font-size:14px;vertical-align:middle;margin-right:4px">photo_camera</span>GPS Camera Photo *</label>
+              <div class="upload-zone" id="gpsUploadZone">
+                <div class="upload-icon"><span class="material-icons-round" style="font-size:44px;color:var(--accent-primary)">add_a_photo</span></div>
+                <div class="upload-text">
+                  <strong>Click to upload</strong> or drag & drop<br>
+                  <small>Take a photo at the event location with GPS enabled</small>
+                </div>
+                <input type="file" id="gpsPhoto" accept="image/*">
+              </div>
+            </div>
+
+            <div class="form-group" id="supportingDocGroup">
+              <label id="supportingDocLabel"><span class="material-icons-round" style="font-size:14px;vertical-align:middle;margin-right:4px">description</span>Supporting Document *</label>
+              <div class="upload-zone" id="docUploadZone">
+                <div class="upload-icon" id="docUploadIcon"><span class="material-icons-round" style="font-size:44px;color:var(--accent-primary)">file_present</span></div>
+                <div class="upload-text" id="docUploadText">
+                  <strong>Click to upload</strong> or drag & drop<br>
+                  <small id="docUploadHint">Upload supporting documentation</small>
+                </div>
+                <input type="file" id="supportingDoc" accept="image/*,.pdf">
+              </div>
+            </div>
+          </div>
+
+          <!-- Pre-DL Fields -->
+          <div id="preDlUploads" style="display: none;">
+            <div class="form-group">
+              <label><span class="material-icons-round" style="font-size:14px;vertical-align:middle;margin-right:4px">emoji_events</span>Upload Participation Proof *</label>
+              <div class="upload-zone" id="participationUploadZone">
+                <div class="upload-icon"><span class="material-icons-round" style="font-size:44px;color:var(--accent-primary)">workspace_premium</span></div>
+                <div class="upload-text">
+                  <strong>Click to upload</strong> or drag & drop<br>
+                  <small>Upload event poster, registration email, or participation proof</small>
+                </div>
+                <input type="file" id="participationProof" accept=".jpg,.jpeg,.png,.pdf">
+              </div>
+            </div>
+            
+            <div class="form-group" id="preDlApprovalGroup">
+              <label><span class="material-icons-round" style="font-size:14px;vertical-align:middle;margin-right:4px">verified</span>Signed ACO / HOD Approval Document *</label>
+              <div class="upload-zone" id="approvalUploadZone">
+                <div class="upload-icon"><span class="material-icons-round" style="font-size:44px;color:var(--accent-primary)">approval</span></div>
+                <div class="upload-text">
+                  <strong>Click to upload</strong> or drag & drop<br>
+                  <small>Upload signed application approved by ACO / HOD</small>
+                </div>
+                <input type="file" id="preApprovalDoc" accept="image/*,.pdf">
+              </div>
+            </div>
+          </div>
+
+          <div class="step-actions">
+            <button type="button" class="btn btn-ghost" onclick="prevStep(1)"><span class="material-icons-round" style="font-size:18px;vertical-align:middle">arrow_back</span> Back</button>
+            <button type="button" class="btn btn-primary" onclick="nextStep(3)">Review <span class="material-icons-round" style="font-size:18px;vertical-align:middle">arrow_forward</span></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3: Review & Submit -->
+      <div class="form-step" id="step3">
+        <div class="glass-card" style="padding: 32px;">
+          <div class="step-header">
+            <h3><span class="material-icons-round" style="font-size:24px;vertical-align:middle;margin-right:8px;color:var(--accent-primary)">fact_check</span>Step 3: Review & Submit</h3>
+            <p>Review your application before submitting</p>
+          </div>
+
+          <div class="review-section">
+            <h4><span class="material-icons-round" style="font-size:16px;vertical-align:middle;margin-right:4px">auto_awesome</span>Auto-Detected Classification</h4>
+            <div class="review-row">
+              <span class="review-label">DL Type</span>
+              <span class="review-value" id="reviewDLType">—</span>
+            </div>
+            <div class="review-row">
+              <span class="review-label">Campus Type</span>
+              <span class="review-value" id="reviewCampus">—</span>
+            </div>
+            <div class="review-row" id="reviewCoordinatorRow">
+              <span class="review-label">Coordinator Approval</span>
+              <span class="review-value" id="reviewCoordinator">—</span>
+            </div>
+          </div>
+
+          <div class="review-section">
+            <h4><span class="material-icons-round" style="font-size:16px;vertical-align:middle;margin-right:4px">event</span>Event Details</h4>
+            <div class="review-row">
+              <span class="review-label">Event Name</span>
+              <span class="review-value" id="reviewEvent">—</span>
+            </div>
+            <div class="review-row">
+              <span class="review-label">Event Date</span>
+              <span class="review-value" id="reviewDate">—</span>
+            </div>
+            <div class="review-row">
+              <span class="review-label">Location</span>
+              <span class="review-value" id="reviewLocation">—</span>
+            </div>
+          </div>
+
+          <div class="review-section">
+            <h4><span class="material-icons-round" style="font-size:16px;vertical-align:middle;margin-right:4px">attach_file</span>Documents</h4>
+            <div id="reviewPostDlDocs">
+              <div class="review-row">
+                <span class="review-label">GPS Photo</span>
+                <span class="review-value" id="reviewGPS">—</span>
+              </div>
+              <div class="review-row">
+                <span class="review-label">Supporting Document</span>
+                <span class="review-value" id="reviewDoc">—</span>
+              </div>
+            </div>
+            
+            <div id="reviewPreDlDocs" style="display: none;">
+              <div class="review-row">
+                <span class="review-label">Participation Proof</span>
+                <span class="review-value" id="reviewParticipationProof">—</span>
+              </div>
+              <div class="review-row">
+                <span class="review-label">Signed Approval Doc</span>
+                <span class="review-value" id="reviewPreApprovalDoc">—</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="step-actions">
+            <button type="button" class="btn btn-ghost" onclick="prevStep(2)"><span class="material-icons-round" style="font-size:18px;vertical-align:middle">arrow_back</span> Back</button>
+            <button type="submit" class="btn btn-success" id="submitBtn"><span class="material-icons-round" style="font-size:18px;vertical-align:middle;margin-right:4px">send</span>Submit Application</button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <div class="page-footer">
+      © 2026 <a href="#">Chandigarh University</a> — DL Verification System
+    </div>
+  </div>
+
+  <script src="js/apply-dl.js"></script>
+  <script>
+    // Dynamically load Google Maps JS API using key from backend
+    (async function loadGoogleMaps() {
+      try {
+        const res = await fetch('/api/dl/config/maps-key');
+        const cfg = await res.json();
+        if (cfg.configured && cfg.key) {
+          const script = document.createElement('script');
+          script.src = `https://maps.googleapis.com/maps/api/js?key=${cfg.key}&callback=initMapPicker&libraries=places`;
+          script.async = true;
+          script.defer = true;
+          script.onerror = () => {
+            const el = document.getElementById('mapLoading');
+            if (el) el.innerHTML = '<span style="color:#d63384;font-size:13px">Failed to load Google Maps</span>';
+          };
+          document.head.appendChild(script);
+        } else {
+          const el = document.getElementById('mapLoading');
+          if (el) el.innerHTML = '<span style="color:#999;font-size:13px">Google Maps API key not configured</span>';
+        }
+      } catch (e) {
+        const el = document.getElementById('mapLoading');
+        if (el) el.innerHTML = '<span style="color:#d63384;font-size:13px">Error loading Google Maps configuration</span>';
+      }
+    })();
+  </script>
+</body>
+</html>

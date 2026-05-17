@@ -1,0 +1,52 @@
+{
+  "users": [
+    {
+      "uid": "25BCS13539",
+      "password": "16JUL2006",
+      "role": "student",
+      "name": "Ritik Sharma",
+      "email": "25BCS13539@cuchd.in",
+      "department": "Computer Science"
+    },
+    {
+      "uid": "25BCS13541",
+      "password": "26NOV2006",
+      "role": "student",
+      "name": "Khushi Raheja",
+      "email": "25BCS13541@cuchd.in",
+      "department": "Computer Science"
+    },
+    {
+      "uid": "25BCS10413",
+      "password": "Ayan@4684",
+      "role": "student",
+      "name": "Ayan Ranjan",
+      "email": "25BCS1043@cuchd.in",
+      "department": "Computer Science"
+    },
+    {
+      "uid": "25BCS13569",
+      "password": "Charchil@12",
+      "role": "student",
+      "name": "Charchil Vijayvergiya",
+      "email": "25BCS13569@cuchd.in",
+      "department": "Computer Science"
+    },
+    {
+      "uid": "25BCS11382",
+      "password": "10OCT2007",
+      "role": "student",
+      "name": "Shishant Kumar",
+      "email": "25BCS11382@cuchd.in",
+      "department": "Computer Science"
+    },
+    {
+      "uid": "ADMIN01",
+      "password": "admin123",
+      "role": "admin",
+      "name": "Dr. Manoj Singla",
+      "email": "manoj.singhla@cumail.in",
+      "department": "Administration"
+    }
+  ]
+}

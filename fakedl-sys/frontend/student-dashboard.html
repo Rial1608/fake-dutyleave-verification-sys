@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Student Dashboard - Duty Leave Verification System">
+  <title>Student Dashboard — DL Verification</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="bg-animation">
+    <div class="orb"></div>
+    <div class="orb"></div>
+    <div class="orb"></div>
+  </div>
+
+  <nav class="navbar">
+    <a href="/student-dashboard" class="brand">
+      <div class="logo-icon">CU</div>
+      <div>
+        <h1>DL Verification</h1>
+        <span id="studentName">Student Portal</span>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="/student-dashboard" class="active"><span class="material-icons-round" style="font-size:18px;vertical-align:middle;margin-right:4px">dashboard</span>Dashboard</a>
+      <a href="/apply-dl"><span class="material-icons-round" style="font-size:18px;vertical-align:middle;margin-right:4px">note_add</span>Apply DL</a>
+      <a href="/dl-status"><span class="material-icons-round" style="font-size:18px;vertical-align:middle;margin-right:4px">track_changes</span>DL Status</a>
+      <button class="btn-logout" id="logoutBtn"><span class="material-icons-round" style="font-size:16px;vertical-align:middle;margin-right:4px">logout</span>Logout</button>
+    </div>
+  </nav>
+
+  <div class="main-content">
+    <!-- WELCOME HERO CARD -->
+    <div class="welcome-hero">
+      <div class="welcome-hero-content">
+        <div class="welcome-badge">
+          <span class="material-icons-round" style="font-size:14px">waving_hand</span>
+          Welcome back
+        </div>
+        <h2 class="welcome-name" id="welcomeName">Student</h2>
+        <p class="welcome-subtitle">Track and manage your duty leave applications. Stay updated on approvals and verification status.</p>
+        <div class="welcome-actions">
+          <a href="/apply-dl" class="welcome-btn primary">
+            <span class="material-icons-round">edit_note</span>
+            Apply for DL
+          </a>
+          <a href="/dl-status" class="welcome-btn secondary">
+            <span class="material-icons-round">list_alt</span>
+            View Status
+          </a>
+        </div>
+      </div>
+      <div class="welcome-hero-visual">
+        <div class="hero-shape"></div>
+        <div class="hero-shape-2"></div>
+        <div class="hero-icon">
+          <span class="material-icons-round">school</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STATS CARDS -->
+    <div class="stats-grid" id="statsGrid">
+      <div class="stat-card glass-card">
+        <div class="stat-icon total"><span class="material-icons-round">leaderboard</span></div>
+        <div class="stat-value" id="statTotal">0</div>
+        <div class="stat-label">Total DLs</div>
+      </div>
+      <div class="stat-card glass-card">
+        <div class="stat-icon approved"><span class="material-icons-round">check_circle</span></div>
+        <div class="stat-value" id="statApproved">0</div>
+        <div class="stat-label">Approved</div>
+      </div>
+      <div class="stat-card glass-card">
+        <div class="stat-icon pending"><span class="material-icons-round">pending_actions</span></div>
+        <div class="stat-value" id="statPending">0</div>
+        <div class="stat-label">Pending</div>
+      </div>
+      <div class="stat-card glass-card">
+        <div class="stat-icon flagged"><span class="material-icons-round">flag</span></div>
+        <div class="stat-value" id="statFlagged">0</div>
+        <div class="stat-label">Flagged</div>
+      </div>
+      <div class="stat-card glass-card">
+        <div class="stat-icon rejected"><span class="material-icons-round">cancel</span></div>
+        <div class="stat-value" id="statRejected">0</div>
+        <div class="stat-label">Rejected</div>
+      </div>
+    </div>
+
+    <!-- QUICK ACTIONS -->
+    <div class="section-divider">
+      <h3 class="section-title"><span class="material-icons-round">bolt</span>Quick Actions</h3>
+      <div class="divider-line"></div>
+    </div>
+    <div class="quick-actions">
+      <a href="/apply-dl" class="action-card glass-card">
+        <div class="action-icon"><span class="material-icons-round">edit_note</span></div>
+        <h4>Apply for Duty Leave</h4>
+        <p>Submit a new DL request with auto-detection</p>
+      </a>
+      <a href="/dl-status" class="action-card glass-card">
+        <div class="action-icon"><span class="material-icons-round">fact_check</span></div>
+        <h4>Check DL Status</h4>
+        <p>View and track your requests in real time</p>
+      </a>
+    </div>
+
+    <!-- RECENT ACTIVITY -->
+    <div class="section-divider">
+      <h3 class="section-title"><span class="material-icons-round">history</span>Recent Activity</h3>
+      <div class="divider-line"></div>
+    </div>
+    <div id="recentActivity">
+      <div class="spinner"></div>
+    </div>
+
+    <div class="page-footer">
+      © 2026 <a href="#">Chandigarh University</a> — DL Verification System
+    </div>
+  </div>
+
+  <script src="js/student-dashboard.js"></script>
+</body>
+</html>
