@@ -1,0 +1,32 @@
+# Fake Duty Leave Verification System - Dependencies
+# This project uses Node.js and npm for package management
+# Install all dependencies with: npm install (in each system directory)
+
+# Shared Dependencies (used by both attendance-sys and fakedl-sys)
+cors@^2.8.5
+dotenv@^16.4.5
+express@^4.21.0
+express-session@^1.18.0
+mongoose@^8.0.0
+multer@^1.4.5-lts.1
+
+# Attendance System Specific Dependencies
+qrcode@^1.5.3
+uuid@^9.0.1
+
+# Fake DL System Specific Dependencies
+exif-parser@^0.1.12
+
+# Development Dependencies (optional)
+nodemon@^3.0.2
+
+# Installation Instructions:
+# 1. Navigate to attendance-sys directory:
+#    cd attendance-sys && npm install
+#
+# 2. Navigate to fakedl-sys directory:
+#    cd ../fakedl-sys && npm install
+#
+# Or use the provided start scripts:
+#    - Windows: .\start-systems.ps1
+#    - Linux/Mac: ./start-systems.sh
