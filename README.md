@@ -56,9 +56,9 @@ project/
 ## 🔧 Installation
 
 ```bash
-git clone https://github.com/your-username/your-repo.git
-cd your-repo
-npm install---
+git clone https://github.com/Rial1608/fake-dutyleave-verification-sys.git
+cd fakedl-sys && npm install
+cd ../attendance-sys && npm install
 
 ```
 
